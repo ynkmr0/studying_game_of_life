@@ -65,11 +65,14 @@ __global__ void step(int *C, int *M)
 //A cell "Survives" if it has 2 or 3 living neighbours; it dies otherwise.
 //細胞は、2つまたは3つの生きている隣人がいれば、「生き残っている」 そうでなければ死ぬ
 
-  if(count < 2 || count > 3) M[threadId] = 0; // cell dies
+  if(count < 2 || count > 3)
+    M[threadId] = 0; // cell dies
 
-  if(count == 2) M[threadId] = C[threadId];// cell stays the same
+  if(count == 2)
+    M[threadId] = C[threadId];// cell stays the same
 
-  if(count == 3) M[threadId] = 1; // cell either stays alive, or is born
+  if(count == 3)
+    M[threadId] = 1; // cell either stays alive, or is born
 }
 """)
 
