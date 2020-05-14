@@ -14,7 +14,6 @@ __global__ void step(int *C, int *M)
   int count;
   int n_x = blockDim.x*gridDim.x;
 
-  printf("(block,grid) (%d,%d) threadIx,y(%d,%d)\\n", blockDim.x, gridDim.x, threadIdx.x, threadIdx.y);
   //printf("%d\\n", n_x);
 
   int i = threadIdx.x + blockDim.x*blockIdx.x;
@@ -22,6 +21,7 @@ __global__ void step(int *C, int *M)
 
   int threadId = j*n_x+i;
   int i_left; int i_right; int j_down; int j_up;
+
 
   if(i==0) {
   i_left=n_x-1;
@@ -54,8 +54,9 @@ __global__ void step(int *C, int *M)
     + C[j_up*n_x+i_right];
 
   //printf("count %d\\n", count);
+  printf("(block,grid) (%d,%d) threadIx,y(%d,%d) i,j(%d,%d) threadId(%d) count(%d)\\n", blockDim.x, gridDim.x, threadIdx.x, threadIdx.y, i, j, threadId, count);
 
-  printf("(block,grid) (%d,%d) threadIx,y(%d,%d)count(%d)\\n", blockDim.x, gridDim.x, threadIdx.x, threadIdx.y, count);
+  //printf("(block,grid) (%d,%d) threadIx,y(%d,%d)count(%d)\\n", blockDim.x, gridDim.x, threadIdx.x, threadIdx.y, count);
 
 
 //Modify matrix M according to the rules B3/S23:
